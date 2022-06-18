@@ -35,9 +35,9 @@ def create_data_lake():
     raise NotImplementedError("Implementar esta función")
 
 
+create_data_lake()
+
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-
-create_data_lake()
