@@ -27,7 +27,7 @@ def ingest_data():
 
     descargar_archivo(ruta, file_name_xlsx, '.xlsx')
 
-    descargar_archivo(ruta, file_name_xlsx, '.xls')
+    descargar_archivo(ruta, file_name_xls, '.xls')
     return
 
 
