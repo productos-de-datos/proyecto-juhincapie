@@ -22,7 +22,6 @@ def create_data_lake():
 
     """
     import os
-    import os
     os.mkdir('./data_lake/')
     parent_dir = 'data_lake/'
     carpetas = ['landing', 'raw', 'cleansed', 'business']
@@ -40,3 +39,5 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+
+create_data_lake()
