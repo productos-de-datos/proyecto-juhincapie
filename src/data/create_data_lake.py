@@ -32,7 +32,8 @@ def create_data_lake():
     parent_dir = 'data_lake/business/reports/'
     directory = 'figures'
     os.mkdir(os.path.join(parent_dir, directory))
-    raise NotImplementedError("Implementar esta función")
+    return
+    #raise NotImplementedError("Implementar esta función")
 
 
 create_data_lake()
