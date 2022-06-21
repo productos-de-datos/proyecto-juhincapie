@@ -10,7 +10,7 @@ def transform_data():
     import pandas as pd
 
     def transformar_xls_a_csv(año, encabezado, extension):
-        read_file = pd.read_csv(
+        read_file = pd.read_excel(
             "data_lake/landing/{}.{}".format(año, extension), header=encabezado)
         read_file = read_file.iloc[:, 0:25]
         read_file.columns = ['Fecha', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
