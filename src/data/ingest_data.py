@@ -7,6 +7,7 @@ def ingest_data():
 
     """
     import pandas as pd
+    import xlwt
 
     def descargar_archivo(ruta, file_name, extension):
 
@@ -15,8 +16,8 @@ def ingest_data():
             nombre_archivo = "data_lake/landing/" + \
                 '{}{}'.format(año, extension)
             descarga = pd.read_excel(url_rute)
-            descarga.to_csv("data_lake/landing/{}{}".format(año,
-                                                            extension), index=None, header=True)
+            descarga.to_excel("data_lake/landing/{}{}".format(año,
+                                                              extension), index=None, header=True)
         return
 
     ruta = "https://github.com/jdvelasq/datalabs/blob/master/datasets/precio_bolsa_nacional/xls/"
