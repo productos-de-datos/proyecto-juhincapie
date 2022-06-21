@@ -7,7 +7,6 @@ def ingest_data():
 
     """
     import pandas as pd
-    import openpyxl
 
     def descargar_archivo(ruta, file_name, extension):
 
