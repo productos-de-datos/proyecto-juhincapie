@@ -11,15 +11,15 @@ def ingest_data():
 
     def descargar_archivo(ruta, file_name, extension):
         for año in file_name:
-            url_ruta = ruta + '/' + año + extension + '.xlsx?raw=true'
-            nombre_archivo = 'data_lake/landing/' + año + '.xlsx'
+            url_ruta = ruta + '/' + año + extension + '?raw=true'
+            nombre_archivo = 'data_lake/landing/' + año + extension
             #r = urllib3.urlopen(url_ruta)
             r = http.request('GET', url_ruta)
             f = open(nombre_archivo, 'wb')
             f.write(r.read())
             f.close()
         return
-    ruta = 'https://github.com/jdvelasq/datalabs/tree/master/datasets/precio_bolsa_nacional/xls'
+    ruta = 'https://github.com/jdvelasq/datalabs/tree/master/datasets/precio_bolsa_nacional/xls/'
     file_name1 = [str(año) for año in range(1995, 2016)]
     file_name2 = [str(año) for año in range(2018, 2022)]
     file_name_xlsx = file_name1 + file_name2
