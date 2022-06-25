@@ -12,7 +12,7 @@
     },
     {
       "name": "Test 02",
-      "setup": "pip3 install matplotlib sklearn pandas openpyxls xlrd xlwt xlsxwriter luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt xlsxwriter luigi pytest pylint",
       "run": "python3 grader.py 02",
       "input": "",
       "output": "",
@@ -62,7 +62,7 @@
     },
     {
       "name": "Test 07",
-      "setup": "pip3 install matplotlib sklearn pandas openpyxls xlrd xlwt xlsxwriter luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt xlsxwriter luigi pytest pylint",
       "run": "python3 grader.py 07",
       "input": "",
       "output": "",
