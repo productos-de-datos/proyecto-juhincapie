@@ -38,12 +38,15 @@ def clean_data():
     df = df[df["fecha"].notnull()]
     df.to_csv("data_lake/cleansed/precios-horarios.csv",
               index=None, header=True)
-    return
-
     #raise NotImplementedError("Implementar esta función")
-clean_data()
+    # return
+
+# clean_data()
+
 
 if __name__ == "__main__":
+
     import doctest
 
     doctest.testmod()
+    clean_data()
