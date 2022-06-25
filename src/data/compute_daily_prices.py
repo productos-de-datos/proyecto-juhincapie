@@ -21,12 +21,11 @@ def compute_daily_prices():
     compute_daily_prices.to_csv(
         "data_lake/business/precios-diarios.csv", index=None, header=True)
     #raise NotImplementedError("Implementar esta función")
-    return
 
-
-compute_daily_prices()
 
 if __name__ == "__main__":
+
     import doctest
 
     doctest.testmod()
+    compute_daily_prices()
