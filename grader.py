@@ -114,29 +114,33 @@ def test_07():
 
 def test_08():
     """Evalua figura precios diarios"""
-    assert os.path.isfile("data_lake/business/reports/figures/daily_prices.png") is True
+    assert os.path.isfile(
+        "data_lake/business/reports/figures/daily_prices.png") is True
 
 
 def test_09():
-    """Evalua figura precios diarios"""
+    """Evalua figura precios mensuales"""
     assert (
-        os.path.isfile("data_lake/business/reports/figures/monthly_prices.png") is True
+        os.path.isfile(
+            "data_lake/business/reports/figures/monthly_prices.png") is True
     )
 
 
 def test_10():
     """Evalua la creación de características para modelos"""
-    assert os.path.isfile("data_lake/business/features/precios_diarios.csv") is True
+    assert os.path.isfile(
+        "data_lake/business/features/precios_diarios.csv") is True
 
 
 def test_11():
     """Modelo creado"""
-    assert os.path.isfile("modeles/precios-diarios.pkl") is True
+    assert os.path.isfile("models/precios-diarios.pkl") is True
 
 
 def test_12():
     """Pronosticos"""
-    assert os.path.isfile("data_lake/business/forecasts/precios-diarios.csv") is True
+    assert os.path.isfile(
+        "data_lake/business/forecasts/precios-diarios.csv") is True
 
 
 test = {
