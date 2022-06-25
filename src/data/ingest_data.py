@@ -29,13 +29,16 @@ def ingest_data():
 
     file_name_xls = ["2016", "2017"]
     descargar_archivo(ruta, file_name_xls, ".xls")
-    return
+    #raise NotImplementedError("Implementar esta función")
+    # return
 
 
-ingest_data()
+# ingest_data()
 
 
 if __name__ == "__main__":
+
     import doctest
 
     doctest.testmod()
+    ingest_data()
