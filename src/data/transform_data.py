@@ -5,7 +5,7 @@ def ruta(year, extension):
 
 def load_data(ruta, encabezado):
     import pandas as pd
-    read_file = pd.read_excel(ruta(), header=encabezado)
+    read_file = pd.read_excel(ruta, header=encabezado)
     read_file = read_file.iloc[:, 0:25]
     read_file.columns = ['Fecha', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
                          '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
@@ -27,17 +27,21 @@ def transform_data():
     """
     for year in range(1995, 2022):
         if year in range(1995, 2000):
-            file = load_data(year, 3, "xlsx")
-            save_data(file)
+            out_file = ruta(year, "xlsx")
+            file = load_data(out_file, 3)
+            save_data(file, year)
         elif(year in range(2000, 2016)):
-            file = load_data(year, 2, "xlsx")
-            save_data(file)
+            out_file = ruta(year, "xlsx")
+            file = load_data(out_file, 2)
+            save_data(file, year)
         elif(year in range(2016, 2018)):
-            file = load_data(year, 2, "xls")
-            save_data(file)
+            out_file = ruta(year, "xls")
+            file = load_data(out_file, 2)
+            save_data(file, year)
         else:
-            file = load_data(year, 0, "xlsx")
-            save_data(file)
+            out_file = ruta(year, "xlsx")
+            file = load_data(out_file, 0)
+            save_data(file, year)
 
 
 def test_answer():
