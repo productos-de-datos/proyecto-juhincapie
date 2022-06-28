@@ -1,4 +1,19 @@
-import pandas as pd
+def ruta(year, extension):
+    ruta = "data_lake/landing/{}.{}".format(year, extension)
+    return ruta
+
+
+def load_data(ruta, encabezado):
+    import pandas as pd
+    read_file = pd.read_excel(ruta(), header=encabezado)
+    read_file = read_file.iloc[:, 0:25]
+    read_file.columns = ['Fecha', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+                         '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+    return read_file
+
+
+def save_data(read_file, year):
+    read_file.to_csv("data_lake/raw/{}.csv".format(year), index=None)
 
 
 def transform_data():
@@ -10,37 +25,23 @@ def transform_data():
     H23.
 
     """
-    import pandas as pd
-
-    def transformar_xls_a_csv(year, encabezado, extension):
-        read_file = pd.read_excel(
-            "data_lake/landing/{}.{}".format(year, extension), header=encabezado)
-        read_file = read_file.iloc[:, 0:25]
-        read_file.columns = ['Fecha', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                             '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
-        read_file.to_csv("data_lake/raw/{}.csv".format(year), index=None)
-
-        return
-
     for year in range(1995, 2022):
         if year in range(1995, 2000):
-            transformar_xls_a_csv(year, 3, "xlsx")
+            file = load_data(year, 3, "xlsx")
+            save_data(file)
         elif(year in range(2000, 2016)):
-            transformar_xls_a_csv(year, 2, "xlsx")
+            file = load_data(year, 2, "xlsx")
+            save_data(file)
         elif(year in range(2016, 2018)):
-            transformar_xls_a_csv(year, 2, "xls")
+            file = load_data(year, 2, "xls")
+            save_data(file)
         else:
-            transformar_xls_a_csv(year, 0, "xlsx")
-
-
-def comp_archivo(year, encabezado, extension):
-    ruta = "data_lake/landing/{}.{}".format(year, extension)
-    read_file = pd.read_excel(ruta, header=encabezado)
-    return ruta
+            file = load_data(year, 0, "xlsx")
+            save_data(file)
 
 
 def test_answer():
-    assert comp_archivo('2021', 0, "xlsx") == "data_lake/landing/2021.xlsx"
+    assert ruta('2021', "xlsx") == "data_lake/landing/2021.xlsx"
 
     # return
 
