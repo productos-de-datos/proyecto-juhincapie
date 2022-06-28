@@ -149,7 +149,7 @@ def test_12():
         "data_lake/business/forecasts/precios-diarios.csv") is True
 
 
-evaluacion = {
+test = {
     "01": test_01,
     "02": test_02,
     "03": test_03,
@@ -169,4 +169,4 @@ if __name__ == "__main__":
 
     import doctest
     doctest.testmod()
-    evaluacion()
+    test()
