@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 def transform_data():
     """Transforme los archivos xls a csv.
 
@@ -29,13 +32,15 @@ def transform_data():
         else:
             transformar_xls_a_csv(year, 0, "xlsx")
 
-    def comp_archivo(year, encabezado, extension):
-        read_file = pd.read_excel(
-            "data_lake/landing/{}.{}".format(year, extension), header=encabezado)
-        return read_file
 
-    def test_answer():
-        assert comp_archivo('2021', 0, "xlsx") == "data_lake/landing/2021.xlsx"
+def comp_archivo(year, encabezado, extension):
+    read_file = pd.read_excel(
+        "data_lake/landing/{}.{}".format(year, extension), header=encabezado)
+    return read_file
+
+
+def test_answer():
+    assert comp_archivo('2021', 0, "xlsx") == "data_lake/landing/2021.xlsx"
 
     # return
 
