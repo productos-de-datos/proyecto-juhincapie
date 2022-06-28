@@ -133,7 +133,7 @@
     {
       "name": "Test 14",
       "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
-      "run": "pytest *ata.py",
+      "run": "pytest transform_data.py",
       "input": "",
       "output": "",
       "comparison": "included",
