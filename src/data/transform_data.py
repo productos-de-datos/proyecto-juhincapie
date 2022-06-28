@@ -28,6 +28,15 @@ def transform_data():
             transformar_xls_a_csv(year, 2, "xls")
         else:
             transformar_xls_a_csv(year, 0, "xlsx")
+
+    def comp_archivo(year, encabezado, extension):
+        read_file = pd.read_excel(
+            "data_lake/landing/{}.{}".format(year, extension), header=encabezado)
+        return read_file
+
+    def test_answer():
+        assert comp_archivo('2021', 0, "xlsx") == "data_lake/landing/2021.xlsx"
+
     # return
 
     #raise NotImplementedError("Implementar esta función")
