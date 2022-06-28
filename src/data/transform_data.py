@@ -34,9 +34,9 @@ def transform_data():
 
 
 def comp_archivo(year, encabezado, extension):
-    read_file = pd.read_excel(
-        "data_lake/landing/{}.{}".format(year, extension), header=encabezado)
-    return read_file
+    ruta = "data_lake/landing/{}.{}".format(year, extension)
+    read_file = pd.read_excel(ruta, header=encabezado)
+    return ruta
 
 
 def test_answer():
