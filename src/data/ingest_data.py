@@ -25,14 +25,8 @@ def ingest_data():
 
 def test_ruta_origen():
     import os
-    assert os.listdir() == ['.github',
-                            '.gitignore',
-                            '.vscode',
-                            'data_lake',
-                            'grader.py',
-                            'Makefile',
-                            'README.md',
-                            'src']
+    assert set(os.listdir()) - set(['.git', '.github', '.gitignore',
+                                    '.vscode', 'data_lake', 'grader.py', 'Makefile', 'README.md', 'src']) == set()
 
 
 if __name__ == "__main__":
