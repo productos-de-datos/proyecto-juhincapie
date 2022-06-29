@@ -23,7 +23,7 @@ def ingest_data():
     #raise NotImplementedError("Implementar esta función")
 
 
-def ruta_origen():
+def test_ruta_origen():
     import os
     assert os.listdir() == ['.git',
                             '.github',
