@@ -25,8 +25,7 @@ def ingest_data():
 
 def test_ruta_origen():
     import os
-    assert os.listdir() == ['.git',
-                            '.github',
+    assert os.listdir() == ['.github',
                             '.gitignore',
                             '.vscode',
                             'data_lake',
