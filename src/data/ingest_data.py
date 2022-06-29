@@ -6,34 +6,34 @@ def ingest_data():
     descarga debe realizarse usando únicamente funciones de Python.
 
     """
-    import pandas as pd
-    import xlwt
+    import wget
+    import os
 
-    def descargar_archivo(ruta, file_name, extension):
-
-        for año in file_name:
-            url_rute = ruta + '/' + año + extension + "?raw=true"
-            nombre_archivo = "data_lake/landing/" + \
-                '{}{}'.format(año, extension)
-            descarga = pd.read_excel(url_rute)
-            descarga.to_excel("data_lake/landing/{}{}".format(año,
-                                                              extension), index=None, header=True)
-        return
-
-    ruta = "https://github.com/jdvelasq/datalabs/blob/master/datasets/precio_bolsa_nacional/xls/"
-    file_name1 = [str(año) for año in range(1995, 2016)]
-    file_name2 = [str(año) for año in range(2018, 2022)]
-
-    file_name_xlsx = file_name1 + file_name2
-    descargar_archivo(ruta, file_name_xlsx, ".xlsx")
-
-    file_name_xls = ["2016", "2017"]
-    descargar_archivo(ruta, file_name_xls, ".xls")
+    os.chdir("data_lake/landing/")
+    for num in range(1995, 2022):
+        if num in range(2016, 2018):
+            wdir = 'https://github.com/jdvelasq/datalabs/blob/master/datasets/precio_bolsa_nacional/xls/{}.xls?raw=true'.format(
+                num)
+            wget.download(wdir)
+        else:
+            wdir = 'https://github.com/jdvelasq/datalabs/blob/master/datasets/precio_bolsa_nacional/xls/{}.xlsx?raw=true'.format(
+                num)
+            wget.download(wdir)
+    os.chdir('../../')
     #raise NotImplementedError("Implementar esta función")
-    # return
 
 
-# ingest_data()
+def ruta_origen():
+    import os
+    assert os.listdir() == ['.git',
+                            '.github',
+                            '.gitignore',
+                            '.vscode',
+                            'data_lake',
+                            'grader.py',
+                            'Makefile',
+                            'README.md',
+                            'src']
 
 
 if __name__ == "__main__":
