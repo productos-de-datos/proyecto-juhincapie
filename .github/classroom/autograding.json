@@ -12,7 +12,7 @@
     },
     {
       "name": "Test 02",
-      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt xlsxwriter luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt wget xlsxwriter luigi pytest pylint",
       "run": "python3 grader.py 02",
       "input": "",
       "output": "",
@@ -133,7 +133,7 @@
     {
       "name": "Test 14",
       "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
-      "run": "pytest src/data/transform_data.py",
+      "run": "pytest src/data/ingest_data.py",
       "input": "",
       "output": "",
       "comparison": "included",
