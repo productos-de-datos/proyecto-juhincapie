@@ -9,8 +9,6 @@ def compute_monthly_prices():
 
     * precio: precio promedio mensual de la electricidad en la bolsa nacional
 
-
-
     """
     import pandas as pd
     df = pd.read_csv("data_lake/cleansed/precios-horarios.csv",
@@ -46,6 +44,7 @@ def compute_monthly_prices():
 
     #raise NotImplementedError("Implementar esta función")
     # return
+# test_data_head_5
 
 
 if __name__ == "__main__":
