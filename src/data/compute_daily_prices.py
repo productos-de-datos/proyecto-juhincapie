@@ -23,6 +23,8 @@ def compute_daily_prices():
         "data_lake/business/precios-diarios.csv", index=None, header=True)
     #raise NotImplementedError("Implementar esta función")
 
+# test_data_head_5
+
 
 if __name__ == "__main__":
 
