@@ -12,6 +12,11 @@ Función clean_data: Orquesta las anteriores funciones con el fin de concatenar
 en un solo archivo los csv de la ruta data_lake/raw/ y los guarda en el archivo 
 precios-horarios.csv en la ruta data_lake/raw/ garantizando que la columna fecha 
 y precio no contengan datos nulos
+
+    * fecha: fecha en formato YYYY-MM-DD
+    * hora: hora en formato HH
+    * precio: precio de la electricidad en la bolsa nacional
+
 """
 
 
@@ -20,6 +25,7 @@ import glob
 
 
 def load_data(in_file):
+
     path_file = glob.glob(in_file)
 
     lista_archivos = []
@@ -46,23 +52,11 @@ def transform_data(read_file):
 
 
 def save_data(data, out_file):
+
     data.to_csv(out_file, index=None, header=True)
 
 
 def clean_data():
-    """Realice la limpieza y transformación de los archivos CSV.
-
-    Usando los archivos data_lake/raw/*.csv, cree el archivo data_lake/cleansed/precios-horarios.csv.
-    Las columnas de este archivo son:
-
-    * fecha: fecha en formato YYYY-MM-DD
-    * hora: hora en formato HH
-    * precio: precio de la electricidad en la bolsa nacional
-
-    Este archivo contiene toda la información del 1997 a 2021.
-
-
-    """
     try:
         in_file = r'data_lake/raw/*.csv'
         out_file = "data_lake/cleansed/precios-horarios.csv"
@@ -82,8 +76,8 @@ def test_columns_dataframe():
         'h2': (12, 13, 14, 15)
     }
     df = pd.DataFrame(dic)
-    excpect = [12, 13, 14, 15, 16, 17, 14, 15, 12, 13, 14, 15]
-    assert transform_data(df).tail(20)['precio'].tolist() == excpect
+    expect = [12, 13, 14, 15, 16, 17, 14, 15, 12, 13, 14, 15]
+    assert transform_data(df).tail(20)['precio'].tolist() == expect
 
 
 if __name__ == "__main__":
