@@ -1,16 +1,13 @@
 """
-Construya un pipeline de Luigi que:
-
-* Importe los datos xls
-* Transforme los datos xls a csv
-* Cree la tabla unica de precios horarios.
-* Calcule los precios promedios diarios
-* Calcule los precios promedios mensuales
-
-En luigi llame las funciones que ya creo.
-
+Módulo Pipeline Tubería u Orquesta de modulos.
+-------------------------------------------------------------------------------
+Orquesta la ejecución de las funciones previamente construídas mediante la 
+librería Luigi, con la cual se definen las clases con sus requerimientos y 
+salidas. Las clases definidas son: ingestar_data, transformar_data, 
+limpiar_data,computar_precio_diario y computar_precio_mensual
 
 """
+
 
 import luigi
 from luigi import Task, LocalTarget
@@ -84,9 +81,12 @@ class computar_precio_mensual(Task):
 
 
 if __name__ == '__main__':
-    luigi.run(["computar_precio_mensual", "--local-scheduler"])
+    try:
 
-if __name__ == "__main__":
-    import doctest
+        import doctest
+        doctest.testmod()
 
-    doctest.testmod()
+        luigi.run(["computar_precio_mensual", "--local-scheduler"])
+
+    except:
+        raise NotImplementedError("Implementar el orquestador de luigi")
