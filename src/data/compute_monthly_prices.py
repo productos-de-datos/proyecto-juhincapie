@@ -1,50 +1,77 @@
-def compute_monthly_prices():
-    """Compute los precios promedios mensuales.
-
-    Usando el archivo data_lake/cleansed/precios-horarios.csv, compute el prcio
-    promedio mensual. Las
-    columnas del archivo data_lake/business/precios-mensuales.csv son:
+"""
+Módulo para promediar precios mensuales.
+-------------------------------------------------------------------------------
+Del archivo data_lake/cleansed/precios-horarios.csv se transforma la columna fecha 
+en formato datetime, se extrae el año y mes y se genera por cada mes del año el precio 
+promedio mensual guardando el archivo en la ruta data_lake/business/precios-mensuales.csv
+columnas del archivo data_lake/business/precios-mensuales.csv son:
 
     * fecha: fecha en formato YYYY-MM-DD
 
     * precio: precio promedio mensual de la electricidad en la bolsa nacional
 
-    """
-    import pandas as pd
-    df = pd.read_csv("data_lake/cleansed/precios-horarios.csv",
-                     index_col=None, header=0)
-    df["fecha"] = pd.to_datetime(df["fecha"])
-    df['year_mes'] = ((df['fecha'].dt.year).astype(int)).astype(
-        str)+"-"+((df['fecha'].dt.month).astype(int)).astype(str)
+"""
+import pandas as pd
 
-    df['dia'] = (df['fecha'].dt.day).astype(int)
-    data_para_dia = df[["year_mes", "dia"]]
 
-    dia_agrupacion = data_para_dia.groupby(
-        "year_mes").max({"dia": "dia"})
-    dia_agrupacion.reset_index(inplace=True)
-    dia_agrupacion['fecha'] = dia_agrupacion['year_mes'] + \
-        "-"+(dia_agrupacion['dia']).astype(str)
+def load_data(infile):
 
-    dia_agrupacion["fecha"] = pd.to_datetime(dia_agrupacion["fecha"])
+    file = pd.read_csv(infile, index_col=None, header=0)
 
-    dfm = df[["year_mes", "precio"]]
-    compute_month_prices = dfm.groupby(
-        "year_mes").mean({"precio_promedio": "precio"})
+    return file
+
+
+def average_monthly_price(file):
+    '''
+    El presente caso de uso permite validar que la función computa el promedio 
+    del precio mensual reacionado con la fecha máxima de cada mes
+    >>> list(average_monthly_price(pd.DataFrame({'fecha': ('2021-06-02', '2021-06-05', '2021-06-02', '2021-03-02'),'precio': (20, 40, 30, 80)})).precio)
+    [80.0, 30.0]
+    '''
+
+    file_copy = file.copy()
+
+    file_copy["fecha"] = pd.to_datetime(file_copy["fecha"])
+
+    file_copy['month'] = file_copy['fecha'].dt.month
+    file_copy['year'] = file_copy['fecha'].dt.year
+
+    compute_month_prices = file_copy.groupby(
+        ['year', 'month']).mean({'precio': 'precios'})
     compute_month_prices.reset_index(inplace=True)
 
-    compute_month_prices = pd.merge(
-        dia_agrupacion, compute_month_prices, on="year_mes", how="left")
+    file_copy = file_copy.groupby(['year', 'month']).agg({'fecha': 'max'})
+    file_copy.reset_index(inplace=True)
 
-    compute_month_prices = compute_month_prices[["fecha", "precio"]]
+    compute_month_prices = file_copy.merge(compute_month_prices, left_on=[
+                                           'year', 'month'], right_on=['year', 'month'])
+    compute_month_prices = compute_month_prices[['fecha', 'precio']]
 
-    compute_month_prices = compute_month_prices.sort_values(by='fecha')
-    compute_month_prices.to_csv(
-        "data_lake/business/precios-mensuales.csv", index=None, header=True)
+    return compute_month_prices
 
-    #raise NotImplementedError("Implementar esta función")
-    # return
-# test_data_head_5
+
+def save_data(compute_month_prices, outfile):
+    compute_month_prices.to_csv(outfile, index=None, header=True)
+
+
+def compute_monthly_prices():
+    try:
+        infile = "data_lake/cleansed/precios-horarios.csv"
+        outfile = "data_lake/business/precios-mensuales.csv"
+        file = load_data(infile)
+        compute_month_prices = average_monthly_price(file)
+        save_data(compute_month_prices, outfile)
+    except:
+        raise NotImplementedError("Implementar esta función")
+
+
+def test_values_compute_daily_prices():
+    df = pd.DataFrame({
+        'fecha': ('2021-06-02', '2021-06-05', '2021-06-02', '2021-03-02'),
+        'precio': (20, 40, 30, 80)
+    })
+    expect = [80.0, 30.0]
+    assert list(average_monthly_price(df).precio) == expect
 
 
 if __name__ == "__main__":
