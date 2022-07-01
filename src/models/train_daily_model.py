@@ -1,3 +1,22 @@
+"""
+Módulo de entrenamiento del pronóstico de precios diarios.
+-------------------------------------------------------------------------------
+Entrena el modelo de los promedios de precios diarios a partir de un random forest y lo salva en models/precios-diarios.pkl. Para ello se definen las funciones:
+
+Función load_data: se cargan los datos de entrada que usará el modelo
+
+Función data_preparation: Se preparan los datos según el formato necesario y se definen las variables del modelo.
+
+Función make_trein_test_split: Parte los datos de entrenamiento y prueba con un test_size de 0.25 para prueba y una semilla o random_state de 12345, retornando las variables x_train, x_test, y_train, y_test
+
+Función train_model: Se entrena el modelo con los datos de entrenamiento
+
+Función save_model: Guarda el modelo en la ruta src/models/precios-diarios.pickle
+
+Función train_daily_model: Orquesta la ejecución de las funciones previamente construídas load_data, data_preparation, make_train_test_split, trein_model y save_model
+"""
+
+
 def load_data():
 
     import pandas as pd
@@ -59,20 +78,14 @@ def save_model(model_RF):
 
 
 def train_daily_model():
-    """Entrena el modelo de pronóstico de precios diarios.
-
-    Con las features entrene el modelo de proóstico de precios diarios y
-    salvelo en models/precios-diarios.pkl
-
-
-    """
-    data = load_data()
-    x, y = data_preparation(data)
-    x_train, x_test, y_train, y_test = make_train_test_split(x, y)
-    model_RF = trein_model(x_train, x_test)
-    save_model(model_RF)
-
-    #raise NotImplementedError("Implementar esta función")
+    try:
+        data = load_data()
+        x, y = data_preparation(data)
+        x_train, x_test, y_train, y_test = make_train_test_split(x, y)
+        model_RF = trein_model(x_train, x_test)
+        save_model(model_RF)
+    except:
+        raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
