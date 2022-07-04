@@ -1,17 +1,23 @@
-def make_monthly_prices_plot():
-    """Crea un grafico de lines que representa los precios promedios diarios.
+"""Crea un grafico de lines que representa los precios promedios diarios.
 
-    Usando el archivo data_lake/business/precios-diarios.csv, crea un grafico de
-    lines que representa los precios promedios diarios.
+Usando el archivo data_lake/business/precios-diarios.csv, crea un grafico de
+lines que representa los precios promedios diarios.
 
-    El archivo se debe salvar en formato PNG en data_lake/business/reports/figures/daily_prices.png.
+El archivo se debe salvar en formato PNG en data_lake/business/reports/figures/daily_prices.png.
 
-    """
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    path_file = r'data_lake/business/precios-mensuales.csv'
-    datos = pd.read_csv(path_file, index_col=None, sep=',', header=0)
-    datos["fecha"] = pd.to_datetime(datos["fecha"])
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def load_data(in_file, name_column_date):
+    datos = pd.read_csv(in_file, index_col=None, sep=',', header=0)
+    datos[name_column_date] = pd.to_datetime(datos["fecha"])
+    return datos
+
+
+def create_plot(datos, out_file):
     x = datos.fecha
     y = datos.precio
 
@@ -22,10 +28,19 @@ def make_monthly_prices_plot():
     plt.ylabel('Precio')
     plt.legend()
     plt.xticks(rotation="vertical")
-    plt.savefig("data_lake/business/reports/figures/monthly_prices.png")
+    plt.savefig(out_file)
 
-    # return
-    #raise NotImplementedError("Implementar esta función")
+
+def make_monthly_prices_plot():
+    try:
+        in_file = r'data_lake/business/precios-mensuales.csv'
+        name_column_date = 'fecha'
+        out_file = "data_lake/business/reports/figures/monthly_prices.png"
+        datos = load_data(in_file, name_column_date)
+        create_plot(datos, out_file)
+
+    except:
+        raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
