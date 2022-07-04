@@ -41,6 +41,16 @@ def load_data(in_file):
 
 def transform_data(read_file):
     '''
+    Pivotea la data con el objetivo de tener esta estructura:
+
+    * fecha: fecha en formato YYYY-MM-DD
+    * hora: hora en formato HH
+    * precio: precio de la electricidad en la bolsa nacional
+
+    El siguiente caso de uso permite visualizar la lista de 
+    precios de todas las columnas referentes a horas
+    de un dataframe de prueba 
+
     >>> transform_data(pd.DataFrame({'Fecha':('2021-06-02','2021-03-02','2021-01-12','2021-01-03'),'h0':(12,13,14,15),'h1':(16,17,14,15),'h2':(12,13,14,15)})).head(20)['precio'].tolist()
     [12, 13, 14, 15, 16, 17, 14, 15, 12, 13, 14, 15]
     '''
