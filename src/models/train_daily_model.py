@@ -7,13 +7,13 @@ Función load_data: se cargan los datos de entrada que usará el modelo
 
 Función data_preparation: Se preparan los datos según el formato necesario y se definen las variables del modelo.
 
-Función make_trein_test_split: Parte los datos de entrenamiento y prueba con un test_size de 0.25 para prueba y una semilla o random_state de 12345, retornando las variables x_train, x_test, y_train, y_test
+Función make_train_test_split: Parte los datos de entrenamiento y prueba con un test_size de 0.25 para prueba y una semilla o random_state de 12345, retornando las variables x_train, x_test, y_train, y_test
 
 Función train_model: Se entrena el modelo con los datos de entrenamiento
 
 Función save_model: Guarda el modelo en la ruta src/models/precios-diarios.pickle
 
-Función train_daily_model: Orquesta la ejecución de las funciones previamente construídas load_data, data_preparation, make_train_test_split, trein_model y save_model
+Función train_daily_model: Orquesta la ejecución de las funciones previamente construídas load_data, data_preparation, make_train_test_split, train_model y save_model
 """
 
 
@@ -53,7 +53,7 @@ def make_train_test_split(x, y):
     return x_train, x_test, y_train, y_test
 
 
-def trein_model(x_train, x_test):
+def train_model(x_train, x_test):
     from sklearn.preprocessing import StandardScaler
     from sklearn.ensemble import RandomForestRegressor
 
@@ -82,7 +82,7 @@ def train_daily_model():
         data = load_data()
         x, y = data_preparation(data)
         x_train, x_test, y_train, y_test = make_train_test_split(x, y)
-        model_RF = trein_model(x_train, x_test)
+        model_RF = train_model(x_train, x_test)
         save_model(model_RF)
     except:
         raise NotImplementedError("Implementar esta función")
