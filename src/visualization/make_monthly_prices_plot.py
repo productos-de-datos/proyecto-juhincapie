@@ -6,6 +6,7 @@ lines que representa los precios promedios diarios.
 El archivo se debe salvar en formato PNG en data_lake/business/reports/figures/daily_prices.png.
 
 """
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -21,8 +22,8 @@ def create_plot(datos, out_file):
     y = datos.precio
 
     plt.figure(figsize=(15, 6))
-    plt.plot(x, y, 'b', label='Promedio Diario')
-    plt.title('Promedio Diario')
+    plt.plot(x, y, 'b', label='Promedio Mensual')
+    plt.title('Promedio Mensual')
     plt.xlabel('Fecha')
     plt.ylabel('Precio')
     plt.legend()
@@ -30,11 +31,11 @@ def create_plot(datos, out_file):
     plt.savefig(out_file)
 
 
-def make_daily_prices_plot():
+def make_monthly_prices_plot():
     try:
-        in_file = r'data_lake/business/precios-diarios.csv'
+        in_file = r'data_lake/business/precios-mensuales.csv'
         name_column_date = 'fecha'
-        out_file = "data_lake/business/reports/figures/daily_prices.png"
+        out_file = "data_lake/business/reports/figures/monthly_prices.png"
         datos = load_data(in_file, name_column_date)
         create_plot(datos, out_file)
 
@@ -47,4 +48,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    make_daily_prices_plot()
+    make_monthly_prices_plot()
