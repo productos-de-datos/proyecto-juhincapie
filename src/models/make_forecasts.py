@@ -6,7 +6,7 @@ Construye los pronósticos con el modelo entrenado utilizando el archivo src/mod
 Función load_pkl: se cargan el archivo src/models/precios-diarios.pickle con los datos de entrenamiento
 Funcion Score: se realizan varias estimaciones para posteriormente compararlas
 Función Best Score: selecciona el mejor estimador con base en la ejecución de la función Score
-Función trein_model_with_best_estimator: se entrena el modelo con los estimadores sugeridos
+Función train_model_with_best_estimator: se entrena el modelo con los estimadores sugeridos
 Función prediction_test_model: se predice x_test 
 Función forecasts: identifica los indices de y_test y selecciona las columnas de fecha, 
 precio y pronóstico
@@ -49,7 +49,7 @@ def best_score(scores):
     return estimador_n
 
 
-def trein_model_with_best_estimator(estimador_n, x_train, y_train):
+def train_model_with_best_estimator(estimador_n, x_train, y_train):
 
     from sklearn.ensemble import RandomForestRegressor
 
@@ -105,7 +105,7 @@ def make_forecasts():
         model_RF = load_pkl(infile)
         scores = score(x_train, y_train, x_test, y_test, model_RF)
         estimador_n = best_score(scores)
-        model_RF = trein_model_with_best_estimator(
+        model_RF = train_model_with_best_estimator(
             estimador_n, x_train, y_train)
         y_pred_RF_testeo = prediction_test_model(model_RF, x_test)
         df_model_RF = forecasts(y_pred_RF_testeo, y_test, data)
